@@ -2,11 +2,19 @@ package postgresql
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/jackc/pgconn"
 )
 
-type client interface {
-	Exec(ctx context.Context, sql string, arguments ...interface{}) (pgconn.CommandTag, error)
-	Query(ctx context.Context, sql string, args ...interface{}) (Rows, error)
+func Init(username, password, host, port, database string) {
+
+	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", username, password, host, port, database)
+
+	_, err := pgconn.Connect(context.Background(), dbUrl)
+	if err != nil {
+
+		fmt.Println("connection is closed")
+	}
+	fmt.Printf("%v: connected to database\n", database)
 }
