@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/KaffeeMaschina/http-rest-api/pkg/client/postgresql"
+	"github.com/KaffeeMaschina/http-rest-api/pkg/postgresql"
 )
 
 func main() {
