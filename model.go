@@ -1,4 +1,4 @@
-package schema
+package restapi
 
 type order struct {
 	order_uid    string `JSON:"order_uid"`

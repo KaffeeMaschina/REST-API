@@ -7,14 +7,19 @@ import (
 	"github.com/jackc/pgconn"
 )
 
-func Init(username, password, host, port, database string) {
+type DB struct {
+	conn *pgconn.PgConn
+}
+
+func Connection(username, password, host, port, database string) (*DB, error) {
 
 	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", username, password, host, port, database)
 
-	_, err := pgconn.Connect(context.Background(), dbUrl)
+	c, err := pgconn.Connect(context.Background(), dbUrl)
 	if err != nil {
+		return nil, err
 
-		fmt.Println("connection is closed")
 	}
-	fmt.Printf("%v: connected to database\n", database)
+	return &DB{c}, nil
+	//fmt.Printf("%v: connected to database\n", database)
 }
