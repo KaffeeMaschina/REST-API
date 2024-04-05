@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/KaffeeMaschina/http-rest-api/pkg/postgresql"
+	"github.com/KaffeeMaschina/http-rest-api/pkg/postgres"
 )
 
 func main() {
-	postgresql.Connection("postgres", "qwerty", "localhost", "5432", "testdb")
+	postgres.Connection("postgres", "qwerty", "localhost", "5432", "testdb")
 
 }
