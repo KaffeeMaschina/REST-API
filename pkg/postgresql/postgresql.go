@@ -20,6 +20,7 @@ func Connection(username, password, host, port, database string) (*DB, error) {
 		return nil, err
 
 	}
+
 	return &DB{c}, nil
 	//fmt.Printf("%v: connected to database\n", database)
 }

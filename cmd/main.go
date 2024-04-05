@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	postgresql.Connection("postgres", "qwerty", "", "5432", "testdb")
+	postgresql.Connection("postgres", "qwerty", "localhost", "5432", "testdb")
 
 }
