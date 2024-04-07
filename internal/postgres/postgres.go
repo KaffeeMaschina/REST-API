@@ -8,8 +8,8 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func Connectiondb() {
-	dbUrl := fmt.Sprintf("postgres://%s:%s@%s/%s", os.Getenv("USERNAME_DB"), os.Getenv("PASSWORD_DB"), os.Getenv("HOST_DB"), os.Getenv("DBNAME_DB"))
+func Connectiondb(username, password, host, database string) {
+	dbUrl := fmt.Sprintf("postgres://%s:%s@%s/%s", username, password, host, database)
 
 	dbconn, err := pgxpool.New(context.Background(), dbUrl)
 	if err != nil {
@@ -19,10 +19,10 @@ func Connectiondb() {
 	defer dbconn.Close()
 
 	var sql string
-	err = dbconn.QueryRow(context.Background(), "select delivery_id from delivery").Scan(&sql)
+	err = dbconn.QueryRow(context.Background(), "select name from delivery").Scan(&sql)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "QueryRow failed: %v\n", err)
-		os.Exit(1)
+		os.Exit(2)
 	}
 
 	fmt.Println(sql)
