@@ -9,6 +9,6 @@ import (
 
 func main() {
 	config.Config()
-	postgres.Connectiondb(os.Getenv("USERMANE_DB"), os.Getenv("PASSWORD_DB"), os.Getenv("HOST_DB"), os.Getenv("DBNAME_DB"))
+	postgres.Connectiondb(os.Getenv("USERMANE_DB"), os.Getenv("PASSWORD_DB"), os.Getenv("HOST_DB"), os.Getenv("PORT_DB"), os.Getenv("DBNAME_DB"))
 	//nats.Connection("nats", "Nikita")
 }

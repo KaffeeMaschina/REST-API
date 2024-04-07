@@ -8,8 +8,8 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-func Connectiondb(username, password, host, database string) {
-	dbUrl := fmt.Sprintf("postgres://%s:%s@%s/%s", username, password, host, database)
+func Connectiondb(username, password, host, port, database string) {
+	dbUrl := fmt.Sprintf("postgres://%s:%s@%s:%s/%s", username, password, host, port, database)
 
 	dbconn, err := pgxpool.New(context.Background(), dbUrl)
 	if err != nil {
