@@ -6,6 +6,7 @@ import (
 	"os"
 
 	config "github.com/KaffeeMaschina/http-rest-api/internal"
+	"github.com/KaffeeMaschina/http-rest-api/internal/lib/logger/sl"
 	postgres "github.com/KaffeeMaschina/http-rest-api/internal/storage/postgres"
 )
 
@@ -24,7 +25,13 @@ func main() {
 	log.Info("i", slog.String("env", cfg.Env))
 	log.Debug("b")
 
-	postgres.New(cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.Database)
+	storage, err := postgres.New(cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.Database)
+	if err != nil {
+		log.Error("failed to init storage", sl.Err(err))
+		os.Exit(1)
+
+	}
+	_ = storage
 	//config.Config()
 	//postgres.Connectiondb("postgres", "qwerty", "localhost", "5432", "postgres")
 	//nats.ConnectionNS("test-cluster", "Nikita")
