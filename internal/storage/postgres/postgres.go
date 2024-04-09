@@ -21,6 +21,10 @@ func New(username, password, host, port, database string) (*Storage, error) {
 	if err != nil {
 		return nil, fmt.Errorf("%s: %w", op, err)
 	}
+	err = db.Ping(context.Background())
+	if err != nil {
+		return nil, err
+	}
 
 	var sql string = "SELECT NAME FROM DELIVERY"
 	rows, err := db.Query(context.Background(), sql)
