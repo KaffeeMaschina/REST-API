@@ -7,6 +7,7 @@ import (
 
 	config "github.com/KaffeeMaschina/http-rest-api/internal"
 	"github.com/KaffeeMaschina/http-rest-api/internal/lib/logger/sl"
+	"github.com/KaffeeMaschina/http-rest-api/internal/nats-streaming"
 	postgres "github.com/KaffeeMaschina/http-rest-api/internal/storage/postgres"
 )
 
@@ -33,8 +34,8 @@ func main() {
 	}
 	_ = storage
 	//config.Config()
-	//postgres.Connectiondb("postgres", "qwerty", "localhost", "5432", "postgres")
-	//nats.ConnectionNS("test-cluster", "Nikita")
+	nats.Publish()
+	nats.ConnectionNS()
 
 }
 
