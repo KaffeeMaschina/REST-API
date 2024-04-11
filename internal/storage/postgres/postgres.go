@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -26,9 +27,14 @@ func New(username, password, host, port, database string) (*Storage, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	path, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+	migrationPath := fmt.Sprintf("000001_init.up.sql://%s/schema", path)
+	fmt.Printf("migrationPath : %s\n", migrationPath)
 	m, err := migrate.New(
-		"000001/init.up.sql://./schema",
+		migrationPath,
 		dbUrl)
 	if err != nil {
 		log.Fatal(err)

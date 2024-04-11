@@ -27,6 +27,12 @@ func /*(ns *nStreaming)*/ ConnectionNS( /*clusterID, clientID string) (client *s
 	w.Add(1)
 	w.Wait()
 
+	sc.Subscribe("foo",
+		func(m *stan.Msg) {
+			fmt.Printf("Got: %s\n", string(m.Data))
+		},
+		stan.DeliverAllAvailable())
+
 	/*сlient, err := stan.Connect(
 			clusterID,
 			clientID,
