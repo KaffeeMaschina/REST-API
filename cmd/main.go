@@ -33,9 +33,8 @@ func main() {
 
 	}
 	_ = storage
-	//config.Config()
-	nats.Publish()
-	nats.ConnectionNS()
+	nats.Subscriber()
+	nats.Publisher()
 
 }
 

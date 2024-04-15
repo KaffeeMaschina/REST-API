@@ -3,10 +3,9 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 
-	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -27,11 +26,12 @@ func New(username, password, host, port, database string) (*Storage, error) {
 	if err != nil {
 		return nil, err
 	}
-	path, err := os.Getwd()
+	/*path, err := os.Getwd()
 	if err != nil {
 		panic(err)
 	}
-	migrationPath := fmt.Sprintf("000001_init.up.sql://%s/schema", path)
+
+	migrationPath := fmt.Sprintf("file://%s/schema", path)
 	fmt.Printf("migrationPath : %s\n", migrationPath)
 	m, err := migrate.New(
 		migrationPath,
@@ -41,7 +41,7 @@ func New(username, password, host, port, database string) (*Storage, error) {
 	}
 	if err := m.Up(); err != nil {
 		log.Fatal(err)
-	}
+	}*/
 	return &Storage{db: db}, nil
 }
 

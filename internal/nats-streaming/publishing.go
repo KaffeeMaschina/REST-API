@@ -1,17 +1,19 @@
 package nats
 
 import (
+	"os"
 	"strconv"
 	"time"
 
 	"github.com/nats-io/stan.go"
 )
 
-func Publish() {
-	sc, _ := stan.Connect("test-cluster", "Pub")
-	defer sc.Close()
-	err := sc.Publish("foo", []byte("Hello World"))
-	_ = err
+func Publisher() {
+
+	sc, err := stan.Connect("test-cluster", "pub")
+	if err != nil {
+		os.Exit(2)
+	}
 
 	for i := 1; ; i++ {
 		sc.Publish("Order", []byte("Order "+strconv.Itoa(i)))
