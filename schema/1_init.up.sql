@@ -1,18 +1,19 @@
-CREATE TABLE IF NOT EXIST payment 
-(
-PAYMENT_ID INT PRIMARY KEY NOT NULL,
-"TRANSACTION"  VARCHAR(128),
-REQUEST_ID VARCHAR(128),
-CURRENCY VARCHAR(128),
-"PROVIDER" VARCHAR(128),
-AMOUNT INT,
-PAYMENT_DT INT,
-BANK VARCHAR(128),
-DELIVERY_COST INT,
-GOODS_TOTAL INT,
-CUSTOM_FEE INT
-);
 
+CREATE TABLE IS EXISTS payment 
+(
+payment_id INT PRIMARY KEY NOT NULL,
+transactions  VARCHAR(128),
+request_id VARCHAR(128),
+currency VARCHAR(128),
+provider VARCHAR(128),
+amount INT,
+payment_db INT,
+bank VARCHAR(128),
+delivery_cost INT,
+goods_total INT,
+custom_fee INT
+);
+/*
 CREATE TABLE items 
 (
 chrt_id int primary key not null,
@@ -56,8 +57,4 @@ off_shard int,
 fk_delivery_id int not null,
 fk_payment_id int not null,
 fk_item_id int not null
-);
-
-ALTER TABLE order ADD CONSTRAINT fk_delivery_id FOREIGN KEY (fk_delivery_id) REFERENCES delivery(delivery_id)
-ALTER TABLE order ADD CONSTRAINT fk_payment_id FOREIGN KEY (fk_payment_id) REFERENCES payment(payment_id)
-ALTER TABLE order ADD CONSTRAINT fk_item_id FOREIGN KEY (fk_item_id) REFERENCES items(chrt_id)
+);*/

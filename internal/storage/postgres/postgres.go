@@ -2,8 +2,11 @@ package postgres
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 
+	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -26,22 +29,25 @@ func New(username, password, host, port, database string) (*Storage, error) {
 	if err != nil {
 		return nil, err
 	}
-	/*path, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	migrationPath := fmt.Sprintf("file://%s/schema", path)
+	mdbUrl := dbUrl + "?sslmode=disable"
+	migrationPath := "file:///Users/nikitacode/LearnGo/Service/rest-api/schema"
 	fmt.Printf("migrationPath : %s\n", migrationPath)
 	m, err := migrate.New(
 		migrationPath,
-		dbUrl)
+		mdbUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("New")
+
 	if err := m.Up(); err != nil {
-		log.Fatal(err)
-	}*/
+		if errors.Is(err, migrate.ErrNoChange) {
+			fmt.Println("no migration to apply")
+
+		}
+		panic(err)
+	}
+	fmt.Println("migrations applied successfully")
 	return &Storage{db: db}, nil
 }
 

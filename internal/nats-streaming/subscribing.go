@@ -17,7 +17,7 @@ func Subscriber() {
 	sub, errSub := sc.Subscribe("Order", func(m *stan.Msg) {
 		fmt.Printf("Got: %s\n", string(m.Data))
 	},
-
+		stan.DurableName("my-durable"),
 		stan.DeliverAllAvailable())
 	sub.IsValid()
 	if errSub != nil {
