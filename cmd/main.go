@@ -7,7 +7,6 @@ import (
 
 	config "github.com/KaffeeMaschina/http-rest-api/internal"
 	"github.com/KaffeeMaschina/http-rest-api/internal/lib/logger/sl"
-	"github.com/KaffeeMaschina/http-rest-api/internal/nats-streaming"
 	postgres "github.com/KaffeeMaschina/http-rest-api/internal/storage/postgres"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -35,8 +34,6 @@ func main() {
 
 	}
 	_ = storage
-	nats.Subscriber()
-	nats.Publisher()
 
 	router := chi.NewRouter()
 	router.Use(middleware.RequestID)

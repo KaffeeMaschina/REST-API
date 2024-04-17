@@ -1,4 +1,4 @@
-package nats
+package main
 
 import (
 	"os"

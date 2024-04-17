@@ -1,5 +1,5 @@
 
-CREATE TABLE IS EXISTS payment 
+CREATE TABLE IF NOT EXISTS payment 
 (
 payment_id INT PRIMARY KEY NOT NULL,
 transactions  VARCHAR(128),
@@ -12,7 +12,7 @@ bank VARCHAR(128),
 delivery_cost INT,
 goods_total INT,
 custom_fee INT
-);
+)
 /*
 CREATE TABLE items 
 (
