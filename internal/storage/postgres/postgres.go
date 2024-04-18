@@ -31,11 +31,11 @@ func New(username, password, host, port, database string) (*Storage, error) {
 		return nil, err
 	}
 	mdbUrl := dbUrl + "?sslmode=disable"
-	migrationPath := "file:///Users/nikitacode/LearnGo/Service/rest-api/schema"
+	migrationPath := "/Users/nikitacode/LearnGo/Service/rest-api/schema"
 	fmt.Printf("migrationPath : %s\n", migrationPath)
 
 	m, err := migrate.New(
-		migrationPath,
+		"file://"+migrationPath,
 		mdbUrl)
 	if err != nil {
 		log.Fatal(err)
