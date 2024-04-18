@@ -1,7 +1,5 @@
-
-CREATE TABLE IF NOT EXISTS payment 
-(
-payment_id INT PRIMARY KEY NOT NULL,
+CREATE TABLE IF NOT EXISTS payment (
+payment_id INT PRIMARY KEY,
 transactions  VARCHAR(128),
 request_id VARCHAR(128),
 currency VARCHAR(128),
@@ -12,49 +10,46 @@ bank VARCHAR(128),
 delivery_cost INT,
 goods_total INT,
 custom_fee INT
-)
-/*
-CREATE TABLE items 
-(
-chrt_id int primary key not null,
-track_number varchar(128),
-price int,
-rid varchar(128),
-"name" varchar(128),
-sale int,
-"size" int,
-total_price int,
-nm_id int,
-brand varchar(128),
-"status" int
 );
 
-CREATE TABLE delivery
-(
-delivery_id int primary key not null,
-"name" varchar(128),
-phone varchar(128),
-zip int,
-city varchar(128),
-"address" varchar(128),
-region varchar(128),
-email varchar(128)
+CREATE TABLE IF NOT EXISTS items (
+chrt_id INT PRIMARY KEY,
+track_number VARCHAR(128),
+price INT,
+rid VARCHAR(128),
+"name" VARCHAR(128),
+sale INT,
+"size" INT,
+total_price INT,
+nm_id INT,
+brand VARCHAR(128),
+"status" INT
 );
 
-CREATE TABLE "order"
-(
-order_uid int primary key not null,
-track_number varchar(128),
-"entry" varchar(128),
-locale varchar(128),
-internal_signature varchar(128),
-customer_id varchar(128),
-delivery_service varchar(128),
-shardkey int,
-sm_id int,
+CREATE TABLE IF NOT EXISTS delivery (
+delivery_id INT PRIMARY KEY NOT NULL,
+"name" VARCHAR(128),
+phone VARCHAR(128),
+zip INT,
+city VARCHAR(128),
+"address" VARCHAR(128),
+region VARCHAR(128),
+email VARCHAR(128)
+);
+
+CREATE TABLE IF NOT EXISTS "order" (
+order_uid INT PRIMARY KEY NOT NULL,
+track_number VARCHAR(128),
+"entry" VARCHAR(128),
+locale VARCHAR(128),
+internal_signature VARCHAR(128),
+customer_id VARCHAR(128),
+delivery_service VARCHAR(128),
+shardkey INT,
+sm_id INT,
 date_created timestamp,
-off_shard int,
-fk_delivery_id int not null,
-fk_payment_id int not null,
-fk_item_id int not null
-);*/
+off_shard INT,
+fk_delivery_id INT NOT NULL,
+fk_payment_id INT NOT NULL,
+fk_item_id INT NOT NULL
+);

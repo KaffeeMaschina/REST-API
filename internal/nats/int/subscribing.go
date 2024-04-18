@@ -1,4 +1,4 @@
-package main
+package nats
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ func Subscriber() {
 	if errConn != nil {
 		os.Exit(10)
 	}
-	defer sc.Close()
+
 	sub, errSub := sc.Subscribe("Order", func(m *stan.Msg) {
 		fmt.Printf("Got: %s\n", string(m.Data))
 	},
