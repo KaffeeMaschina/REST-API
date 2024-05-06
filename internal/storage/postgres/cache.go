@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"fmt"
 	"sync"
 
 	"github.com/KaffeeMaschina/http-rest-api/internal/storage"
@@ -25,12 +24,12 @@ func (c *Cache) SetCache(oid string, o storage.Orders) {
 	defer c.m.Unlock()
 
 	c.orders[oid] = o
-	//fmt.Println(c.orders[oid])
+
 }
 
 // Read data from cache
 func (c *Cache) OrderOutCache(oid string) (o storage.Orders) {
-	fmt.Println(c.orders[oid])
+
 	c.m.RLock()
 
 	o = c.orders[oid]

@@ -13,21 +13,21 @@ type server struct {
 	router *chi.Mux
 }
 
-func NewServer(db *postgres.DB, router *chi.Mux) *server {
+func NewServer(db *postgres.DB, router *chi.Mux, address string) *server {
 	s := server{db: db,
 		router: router}
-	s.StartServer()
+	s.StartServer(address)
 	return &s
 }
 
-func (s *server) StartServer() {
+func (s *server) StartServer(address string) {
 
 	http.HandleFunc("/orders", s.showOrder)
-	http.ListenAndServe(":8082", nil)
+	http.ListenAndServe(address, nil)
 }
 
 func (s *server) showOrder(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("f[f[f]]")
+
 	o := s.db.OrderOut()
 	fmt.Fprintf(w, "%v", o)
 

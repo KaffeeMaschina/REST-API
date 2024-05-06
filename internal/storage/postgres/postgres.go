@@ -192,8 +192,8 @@ func (S *DB) GetOrderFromDB(oid string) (o storage.Orders, err error) {
 	defer rows.Close()
 
 	for rows.Next() {
+
 		var item storage.Items
-		fmt.Println(item)
 		if err := rows.Scan(&item.Chrt_id, &item.Track_number, &item.Price, &item.Rid, &item.Name, &item.Sale, &item.Size,
 			&item.Total_price, &item.Nm_id, &item.Brand, &item.Status); err != nil {
 			return o, err

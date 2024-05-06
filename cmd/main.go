@@ -6,7 +6,6 @@ import (
 
 	config "github.com/KaffeeMaschina/http-rest-api/internal"
 	server "github.com/KaffeeMaschina/http-rest-api/internal/http-server"
-	mwLogger "github.com/KaffeeMaschina/http-rest-api/internal/http-server/middleware/logger"
 
 	"github.com/KaffeeMaschina/http-rest-api/internal/nats"
 	postgres "github.com/KaffeeMaschina/http-rest-api/internal/storage/postgres"
@@ -37,11 +36,7 @@ func main() {
 	nats.NewStreamingHandler(storage, cfg.ClusterID, cfg.CLientID)
 
 	router := chi.NewRouter()
-
-	//router.Use(middleware.RequestID)
-	router.Use(mwLogger.New(log))
-	//router.Use(middleware.Recoverer)
-	server.NewServer(storage, router)
+	server.NewServer(storage, router, cfg.Address)
 
 }
 
