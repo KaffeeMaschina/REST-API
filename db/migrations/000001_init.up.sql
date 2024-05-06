@@ -15,7 +15,7 @@ custom_fee INT
 );
 
 CREATE TABLE IF NOT EXISTS items (
-chrt_id INT PRIMARY KEY,
+chrt_id INT PRIMARY KEY NOT NULL,
 track_number VARCHAR(128),
 price INT,
 rid VARCHAR(128),

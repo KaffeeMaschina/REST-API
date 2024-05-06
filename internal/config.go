@@ -3,7 +3,6 @@ package config
 import (
 	"log"
 	"os"
-	"time"
 
 	"github.com/ilyakaznacheev/cleanenv"
 	"github.com/joho/godotenv"
@@ -23,12 +22,11 @@ type Storagecfg struct {
 	Database string `yaml:"database" env-required:"true"`
 }
 type HTTPServer struct {
-	Address     string        `yaml:"address" env-default:"localhost:8080"`
-	Timeout     time.Duration `yaml:"timeout" env-default:"4s"`
-	IdleTimeout time.Duration `yaml:"idle_timeout" env-default:"60s"`
+	Address string `yaml:"address" env-default:"localhost:8080"`
 }
 type NatsStreaming struct {
 	ClusterID string `yaml:"cluster_id" env-required:"true"`
+	CLientID  string `yaml:"client_id" ent-required:"true"`
 }
 
 func MustLoad() *Config {
@@ -50,12 +48,3 @@ func MustLoad() *Config {
 	}
 	return &cfg
 }
-
-/*func Config() {
-	os.Setenv("USERNAME_DB", "postgres")
-	os.Setenv("PASSWORD_DB", "qwerty")
-	os.Setenv("HOST_DB", "localhost")
-	os.Setenv("PORT_DB", "5432")
-	os.Setenv("DBNAME_DB", "postgres")
-
-}*/

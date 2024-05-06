@@ -9,26 +9,30 @@ import (
 )
 
 type StreamingHandler struct {
-	conn  *stan.Conn
-	sub   *Subscriber
-	pub   *Publisher
-	name  string
-	isErr bool
+	conn      *stan.Conn
+	sub       *Subscriber
+	pub       *Publisher
+	ClusterID string
+	CLientID  string
+	isErr     bool
 }
 
-func NewStreamingHandler(S *postgres.DB) *StreamingHandler {
-	sh := StreamingHandler{}
+func NewStreamingHandler(S *postgres.DB, ClusterID, CLientID string) *StreamingHandler {
+	sh := StreamingHandler{
+		ClusterID: ClusterID,
+		CLientID:  CLientID,
+	}
 	sh.Init(S)
 	return &sh
 }
 
 func (sh *StreamingHandler) Init(S *postgres.DB) {
-	sh.name = "StreamingHandler"
+
 	err := sh.NewConnection()
 
 	if err != nil {
 		sh.isErr = true
-		log.Printf("%s: StreamingHandler error: %s", sh.name, err)
+		log.Printf("StreamingHandler error: %s", err)
 	} else {
 		sh.sub = NewSubscriber(S, sh.conn)
 		sh.sub.Subscribe()
@@ -38,7 +42,7 @@ func (sh *StreamingHandler) Init(S *postgres.DB) {
 	}
 }
 func (sh *StreamingHandler) NewConnection() error {
-	sc, err := stan.Connect("test-cluster", "pub")
+	sc, err := stan.Connect(sh.ClusterID, sh.CLientID)
 	if err != nil {
 		os.Exit(2)
 

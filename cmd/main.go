@@ -5,12 +5,12 @@ import (
 	"os"
 
 	config "github.com/KaffeeMaschina/http-rest-api/internal"
-	mwLogger "github.com/KaffeeMaschina/http-rest-api/internal/http-server/middlewarelogger"
-	"github.com/KaffeeMaschina/http-rest-api/internal/lib/logger/sl"
+	server "github.com/KaffeeMaschina/http-rest-api/internal/http-server"
+	mwLogger "github.com/KaffeeMaschina/http-rest-api/internal/http-server/middleware/logger"
+
 	"github.com/KaffeeMaschina/http-rest-api/internal/nats"
 	postgres "github.com/KaffeeMaschina/http-rest-api/internal/storage/postgres"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 )
 
 const (
@@ -30,17 +30,18 @@ func main() {
 	csh := postgres.NewCashe()
 	storage, err := postgres.New(cfg.Username, cfg.Password, cfg.Host, cfg.Port, cfg.Database, csh)
 	if err != nil {
-		log.Error("failed to init storage", sl.Err(err))
+		log.Error("failed to init storage", err)
 		os.Exit(1)
 	}
 
-	nats.NewStreamingHandler(storage)
+	nats.NewStreamingHandler(storage, cfg.ClusterID, cfg.CLientID)
 
 	router := chi.NewRouter()
 
-	router.Use(middleware.RequestID)
-	router.Use(mwLogger.New())
-	router.Use(middleware.Recoverer)
+	//router.Use(middleware.RequestID)
+	router.Use(mwLogger.New(log))
+	//router.Use(middleware.Recoverer)
+	server.NewServer(storage, router)
 
 }
 

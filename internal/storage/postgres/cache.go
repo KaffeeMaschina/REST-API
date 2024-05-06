@@ -12,21 +12,29 @@ type Cache struct {
 	orders map[string]storage.Orders
 }
 
+// Create new cache
 func NewCashe() *Cache {
 	orders := make(map[string]storage.Orders)
 
 	return &Cache{orders: orders}
 }
 
+// Write data to cache
 func (c *Cache) SetCache(oid string, o storage.Orders) {
 	c.m.Lock()
 	defer c.m.Unlock()
 
 	c.orders[oid] = o
-
-	fmt.Println(c.orders)
+	//fmt.Println(c.orders[oid])
 }
 
-func (c *Cache) GetCacheFromDB() {
+// Read data from cache
+func (c *Cache) OrderOutCache(oid string) (o storage.Orders) {
+	fmt.Println(c.orders[oid])
+	c.m.RLock()
+
+	o = c.orders[oid]
+	c.m.RUnlock()
+	return o
 
 }

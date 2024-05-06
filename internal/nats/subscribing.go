@@ -26,7 +26,6 @@ func NewSubscriber(db *postgres.DB, conn *stan.Conn) *Subscriber {
 func (s *Subscriber) Subscribe() {
 	var err error
 	s.sub, err = (*s.sc).Subscribe("Order", func(m *stan.Msg) {
-		//fmt.Printf("Got: %s\n", string(m.Data))
 		s.MsgToStorage(m.Data)
 	},
 		stan.DurableName("my-durable"),
@@ -44,8 +43,7 @@ func (s *Subscriber) MsgToStorage(data []byte) {
 	if err != nil {
 		log.Printf("Unmarschal error: %s", err)
 	}
-	//fmt.Println(ReceivedMsg)
-	s.BD.AddOrder(ReceivedMsg)
+	s.BD.AddOrderByOID(ReceivedMsg)
 }
 func (s *Subscriber) Unsubscribe() {
 	if s.sub != nil {

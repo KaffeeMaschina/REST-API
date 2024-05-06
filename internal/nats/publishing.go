@@ -13,12 +13,14 @@ type Publisher struct {
 	sc *stan.Conn
 }
 
+// Create publisher
 func NewPublisher(conn *stan.Conn) *Publisher {
 	return &Publisher{
 		sc: conn,
 	}
 }
 
+// Publish to channel some data
 func (p *Publisher) Publish() {
 	item := storage.Items{Chrt_id: 9934930, Track_number: "WBILMTESTTRACK", Price: 453, Rid: "ab4219087a764ae0btest", Name: "Mascaras",
 		Sale: 30, Size: "0", Total_price: 317, Nm_id: 2389212, Brand: "Vivienne Sabo", Status: 202}
