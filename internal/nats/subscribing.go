@@ -16,6 +16,7 @@ type Subscriber struct {
 	sc  *stan.Conn
 }
 
+// Create subscriber
 func NewSubscriber(db *postgres.DB, conn *stan.Conn) *Subscriber {
 	return &Subscriber{
 		BD: db,
@@ -23,6 +24,7 @@ func NewSubscriber(db *postgres.DB, conn *stan.Conn) *Subscriber {
 	}
 }
 
+// Subscribe to nats-streaming channel
 func (s *Subscriber) Subscribe() {
 	var err error
 	s.sub, err = (*s.sc).Subscribe("Order", func(m *stan.Msg) {
@@ -37,11 +39,17 @@ func (s *Subscriber) Subscribe() {
 
 }
 
+// Transfer data to database
 func (s *Subscriber) MsgToStorage(data []byte) {
 	ReceivedMsg := storage.Orders{}
+
 	err := json.Unmarshal(data, &ReceivedMsg)
 	if err != nil {
 		log.Printf("Unmarschal error: %s", err)
+	}
+	err = ReceivedMsg.ValidateOrders()
+	if err != nil {
+		log.Printf("Validation error: %s", err)
 	}
 	s.BD.AddOrderByOID(ReceivedMsg)
 }
