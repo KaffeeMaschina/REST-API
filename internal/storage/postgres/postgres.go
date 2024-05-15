@@ -140,14 +140,15 @@ func (S *DB) AddOrder(o storage.Orders) error {
 func (S *DB) SetCacheFromDB() {
 
 	oid := S.GetOID()
+	fmt.Println(oid)
+	if oid != "" {
+		o, err := S.GetOrderFromDB(oid)
+		if err != nil {
+			log.Printf(": unable to get orders from database: %v\n", err)
+		}
 
-	o, err := S.GetOrderFromDB(oid)
-	if err != nil {
-		log.Printf(": unable to get orders from database: %v\n", err)
+		S.csh.SetCache(oid, o)
 	}
-
-	S.csh.SetCache(oid, o)
-
 }
 
 // Select data from database to storage.Orders{}
@@ -221,7 +222,7 @@ func (S *DB) GetOID() (oid string) {
 
 	err := S.db.QueryRow(context.Background(), `SELECT order_uid FROM orders`).Scan(&oid)
 	if err != nil {
-		log.Printf(": unable to get order_id from database: %v\n", err)
+		log.Printf(": unable to get order_uid from database: %v\n", err)
 	}
 
 	return oid
