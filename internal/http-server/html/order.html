@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Order</title>
+</head>
+<body>
+    <h1>Order</h1>
+    <p>Order_uid: {{.Order_uid}}</p>
+    <p>Track_number: {{.Track_number}}</p>
+</body>
+
+
+<script>
+    function submitHandler() {
+        let searchValue = document.getElementById('search').value;
+        if (searchValue == "") {
+            alert("Input order id value!");
+        } else {
+            window.location = "http://localhost:3333/orders/" + searchValue
+        }
+    }
+</script>
+
+</html>

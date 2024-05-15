@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"fmt"
 	"regexp"
 	"time"
 
@@ -65,7 +64,7 @@ type Payments struct {
 }
 
 func (o Orders) ValidateOrders() error {
-	fmt.Println("validation")
+
 	return validation.ValidateStruct(
 		&o,
 		validation.Field(&o.Order_uid, AlphanumericRule...),

@@ -10,6 +10,7 @@ import (
 	"github.com/KaffeeMaschina/http-rest-api/internal/nats"
 	postgres "github.com/KaffeeMaschina/http-rest-api/internal/storage/postgres"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 const (
@@ -36,6 +37,7 @@ func main() {
 	nats.NewStreamingHandler(storage, cfg.ClusterID, cfg.CLientID)
 
 	router := chi.NewRouter()
+	router.Use(middleware.URLFormat)
 	server.NewServer(storage, router, cfg.Address)
 
 }

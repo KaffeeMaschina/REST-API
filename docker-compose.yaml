@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "qwerty"
+    ports:
+      - "5432:5432"
+  nats-streaming:
+    image: nats-streaming:latest
+    ports:
+      - "4222:4222"
+      - "8222:8222"
