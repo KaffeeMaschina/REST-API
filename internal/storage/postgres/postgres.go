@@ -211,8 +211,6 @@ func (S *DB) GetOrderFromDB(oid string) (o storage.Orders, err error) {
 // Get data for server
 func (S *DB) OrderOut(oid string) (o storage.Orders) {
 
-	//oid = S.GetOID()
-	fmt.Println(oid)
 	o = S.csh.OrderOutCache(oid)
 
 	return
@@ -225,6 +223,6 @@ func (S *DB) GetOID() (oid string) {
 	if err != nil {
 		log.Printf(": unable to get order_id from database: %v\n", err)
 	}
-	fmt.Println(oid)
+
 	return oid
 }
