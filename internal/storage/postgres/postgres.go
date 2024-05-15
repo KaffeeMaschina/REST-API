@@ -140,7 +140,7 @@ func (S *DB) AddOrder(o storage.Orders) error {
 func (S *DB) SetCacheFromDB() {
 
 	oid := S.GetOID()
-	fmt.Println(oid)
+
 	if oid != "" {
 		o, err := S.GetOrderFromDB(oid)
 		if err != nil {
